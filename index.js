@@ -82,13 +82,15 @@ app.post("/api/users/:id/exercises", async (req, res) => {
     return res.json({ message: "No user exists for that id" });
   }
 
-  await Exercise.create({
-    username: foundUser.username,
-    description,
-    duration,
-    date,
-    userId,
-  });
+  if (!Exercise.findOne({ userId })) {
+    await Exercise.create({
+      username: foundUser.username,
+      description,
+      duration,
+      date,
+      userId,
+    });
+  }
 
   res.send({
     username: foundUser.username,
