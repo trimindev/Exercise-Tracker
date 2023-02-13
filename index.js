@@ -93,7 +93,7 @@ app.post("/api/users/:id/exercises", async (req, res) => {
   res.send({
     username: foundUser.username,
     description,
-    duration,
+    duration: Number(duration),
     date: date.toDateString(),
     _id: userId,
   });
