@@ -68,7 +68,9 @@ app.post("/api/users", async (req, res) => {
 
 app.post("/api/users/:id/exercises", async (req, res) => {
   let { description, duration, date } = req.body;
-  const userId = req.body[":_id"];
+  const userId = req.params._id;
+
+  duration = parseInt(duration);
 
   if (!date) {
     date = new Date();
