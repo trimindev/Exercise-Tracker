@@ -87,14 +87,16 @@ app.post("/api/users/:_id/exercises", function (req, res) {
   let userId = req.params._id;
   let description = req.body.description;
   let duration = parseInt(req.body.duration);
-  let date = req.body.date !== undefined ? new Date(req.body.date) : new Date();
+  let date = req.body.date;
 
   if (isNaN(duration)) {
     return res.json({ error: "duration is not a number" });
   }
 
-  if (date == "Invalid Date") {
-    return res.json({ error: "date is invalid" });
+  if (!date) {
+    date = new Date();
+  } else {
+    date = new Date(date);
   }
 
   ExerciseUsers.findById(userId, function (err, data) {
